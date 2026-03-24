@@ -20,7 +20,7 @@ function initApp() {
     demoHabit1.registerCheckIn('2026-03-11');
     demoHabit1.registerCheckIn(new Date().toDateString());
 
-    const demoHabit2 = Habit.weekly('Ejercicio');
+    const demoHabit2 = Habit.weekly('Estudiar');
     demoHabit2.registerCheckIn('2026-03-06');
     demoHabit2.registerCheckIn('2026-03-13');
 

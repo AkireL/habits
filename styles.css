@@ -88,13 +88,13 @@ section {
   position: relative;
   margin-bottom: 40px;
   padding: 20px;
-  background: #fafafa;
+  background: #c4e7a1;
   border-radius: 8px;
 }
 
 .quote-text {
   font-style: italic;
-  color: #555;
+  color: #161616;
   line-height: 1.6;
 }
 
@@ -173,8 +173,8 @@ section {
 }
 
 .habit-checkbox {
-  width: 44px;
-  height: 44px;
+  width: 30px;
+  height: 30px;
   border: 2px solid #e5e5e5;
   border-radius: 8px;
   cursor: pointer;
@@ -187,13 +187,13 @@ section {
 }
 
 .habit-checkbox:hover {
-  border-color: #a3e4d7;
-  background: #f0fdf4;
+  border-color: #e2a3e4;
+  background: #e2a3e4;
 }
 
 .habit-checkbox.checked {
-  background: #a3e4d7;
-  border-color: #a3e4d7;
+  background: #e2a3e4;
+  border-color: #e2a3e4;
 }
 
 .habit-checkbox.checked::after {
@@ -406,7 +406,7 @@ footer {
 }
 
 .message-box.success {
-  background: #10b981;
+  background: #22c55e;
 }
 
 .message-box.error {

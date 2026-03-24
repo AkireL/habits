@@ -98,7 +98,7 @@ export class Habit {
     }
 
     removeCheckIn(date) {
-        return this.#tracker.removeLog(date);
+        return this.#tracker.removeLogs(date);
     }
 
     calculateStreak(today = new Date) {
