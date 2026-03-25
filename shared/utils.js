@@ -14,6 +14,26 @@ export function getCurrentMonthDays(date = new Date) {
   return dates;
 }
 
+export function getMonthDays(date = new Date) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  const days = [];
+  
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    days.push(null);
+  }
+  
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateObj = new Date(year, month, day);
+    days.push(dateObj.toISOString().split('T')[0]);
+  }
+  
+  return days;
+}
+
 
 export function monthName(index)
 {

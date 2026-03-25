@@ -1,7 +1,7 @@
 import { Habit } from "../../entities/habit.js";
 import { closeModal } from "./renderModal.js";
 import { showMessage } from "./toaster.js";
-import { getCurrentMonthDays } from "../../shared/utils.js";
+import { getMonthDays, monthName } from "../../shared/utils.js";
 import { MAX_HABITS } from "../../shared/dictionary.js";
 
 export function renderHabits(habits) {
@@ -23,38 +23,58 @@ export function renderHabits(habits) {
     createHabitBtn.style.display = 'block';
   }
 
-  const monthDays = getCurrentMonthDays();
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
 
-  const headerRow = `
-    <div class="habit-row habit-header">
-      <span class="habit-day-label">Día</span>
-      ${habits.getHabits().map((habit) => `<span class="habit-name">${habit.name}</span>`).join('')}
+  const calendarHeader = `
+    <div class="calendar-title">${monthName(today.getMonth())} ${today.getFullYear()}</div>
+    <div class="calendar-weekdays">
+      <span>Do</span>
+      <span>Lu</span>
+      <span>Ma</span>
+      <span>Mi</span>
+      <span>Ju</span>
+      <span>Vi</span>
+      <span>Sa</span>
     </div>
   `;
 
-  const dayRows = monthDays
-    .map((date, index) => {
-      const dateObj = new Date(date + 'T00:00:00');
-      const dayLabel = String(dateObj.getDate()).padStart(2, '0');
+  const monthDays = getMonthDays();
+
+  const calendarDays = monthDays
+    .map((date) => {
+      if (date === null) {
+        return '<div class="calendar-day empty"></div>';
+      }
+
+      const dayNum = new Date(date + 'T00:00:00').getDate();
+      const isToday = date === todayStr;
+
+      const habitsList = habits.getHabits()
+        .map((habit) => {
+          const habitLogs = habit.getLogs();
+          const isChecked = habitLogs.includes(date);
+          return `
+            <div class="habit-item ${isChecked ? 'checked' : ''}">
+              <div class="habit-checkbox ${isChecked ? 'checked' : ''}" 
+                  data-habit-id="${habit.id}" 
+                  data-date="${date}"></div>
+              <span class="habit-item-name">${habit.name}</span>
+            </div>
+          `;
+        })
+        .join('');
 
       return `
-        <div class="habit-row">
-          <span class="habit-day">${dayLabel}</span>
-          ${habits.getHabits()
-            .map((habit) => {
-              const habitLogs = habit.getLogs();
-              const isChecked = habitLogs.includes(date);
-              return `<div class="habit-checkbox ${isChecked ? 'checked' : ''}" 
-                         data-habit-id="${habit.id}" 
-                         data-date="${date}"></div>`;
-            })
-            .join('')}
+        <div class="calendar-day ${isToday ? 'today' : ''}">
+          <span class="day">${dayNum}</span>
+          <div class="day-habits">${habitsList}</div>
         </div>
       `;
     })
     .join('');
 
-  habitsTable.innerHTML = headerRow + dayRows;
+  habitsTable.innerHTML = calendarHeader + '<div class="calendar-grid">' + calendarDays + '</div>';
 
   habitSelect.innerHTML =
     '<option value="">Selecciona un hábito</option>' +

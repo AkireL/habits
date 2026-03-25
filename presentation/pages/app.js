@@ -1,20 +1,10 @@
 import { Habit } from "../../entities/habit.js";
 import { ListHabits } from "../../services/listHabit.js";
-import { dayName, monthName } from "../../shared/utils.js";
 import { setupModalListeners } from "../components/renderModal.js";
 import { renderQuote } from "../components/renderQuote.js";
 import { renderBtn, renderHabits } from "../components/renderUI.js";
 
 function initApp() {
-    let weekDay = document.getElementById('dayName')
-    weekDay.innerHTML = dayName(new Date().getDay());
-
-    let day = document.getElementById('dayNumber')
-    day.innerHTML = new Date().getDate();
-
-    let month = document.getElementById('monthName')
-    month.innerHTML = monthName(new Date().getMonth());
-
     const demoHabit1 = Habit.daily('Leer');
     demoHabit1.registerCheckIn('2026-03-10');
     demoHabit1.registerCheckIn('2026-03-11');
