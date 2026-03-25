@@ -46,5 +46,10 @@ Funcionalidades faltantes:
 - ❌ Consulta de hábitos mensuales
 ---
 
+App
+
+![calendar](./static/calendar-habits.png)
+
+---
 > Nota: Este proyecto aún no ha sido terminado.
 ---
